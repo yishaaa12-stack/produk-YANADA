@@ -6,7 +6,7 @@
     <title>Menu Pelayanan Kesehatan Klinik Sehat</title>
     
     <style>
-        /* CSS Sederhana untuk Tampilan */
+        /* CSS Utama */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #e9ecef;
@@ -28,24 +28,15 @@
             border-bottom: 2px solid #007bff;
             padding-bottom: 10px;
         }
-        p.subtitle {
-            text-align: center;
-            color: #6c757d;
-            margin-bottom: 30px;
-        }
         .menu-item {
             display: flex;
+            justify-content: space-between; /* Untuk memisahkan detail dan tombol */
             align-items: center;
             margin-bottom: 20px;
             padding: 15px;
             border-left: 5px solid #28a745;
             background-color: #f8f9fa;
             border-radius: 5px;
-            transition: transform 0.2s;
-        }
-        .menu-item:hover {
-            transform: translateX(5px);
-            background-color: #e9ecef;
         }
         .icon {
             font-size: 28px;
@@ -54,12 +45,59 @@
         }
         .details h3 {
             margin: 0 0 5px 0;
-            color: #212529;
         }
         .details p {
             margin: 0;
             font-size: 0.9em;
             color: #6c757d;
+        }
+        .booking-section button {
+            background-color: #ffc107;
+            color: #212529;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .booking-section button:hover {
+            background-color: #e0a800;
+        }
+
+        /* CSS untuk Modal Konfirmasi (Pop-up) */
+        .modal {
+            display: none; /* Tersembunyi secara default */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4); /* Background gelap */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* Tengah vertikal dan horizontal */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-btn:hover,
+        .close-btn:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -67,41 +105,96 @@
 
     <div class="container">
         <h1>🩺 Layanan Kesehatan & Kecantikan</h1>
-        <p class="subtitle">Pilih pelayanan yang sesuai dengan kebutuhan kesehatan dan relaksasi Anda.</p>
+        <p class="subtitle">Pilih pelayanan yang sesuai dan tekan 'Pesan Sekarang' untuk *booking*.</p>
 
         <div class="menu-item">
-            <span class="icon">❤️</span>
             <div class="details">
+                <span class="icon">❤️</span>
                 <h3>Tes Tekanan Darah</h3>
-                <p>Pemeriksaan rutin untuk mengukur tekanan sistolik dan diastolik. Penting untuk deteksi dini hipertensi atau hipotensi.</p>
+                <p>Pemeriksaan rutin untuk mengukur tekanan sistolik dan diastolik.</p>
+            </div>
+            <div class="booking-section">
+                <button data-service="Tes Tekanan Darah">Pesan Sekarang</button>
             </div>
         </div>
 
         <div class="menu-item">
-            <span class="icon">🩸</span>
             <div class="details">
+                <span class="icon">🩸</span>
                 <h3>Tes Darah Lengkap (CBC)</h3>
-                <p>Analisis komposisi darah (sel darah merah, sel darah putih, trombosit). Mendeteksi infeksi, anemia, dan gangguan lainnya.</p>
+                <p>Analisis komposisi darah (sel darah merah, sel darah putih, trombosit).</p>
+            </div>
+            <div class="booking-section">
+                <button data-service="Tes Darah Lengkap">Pesan Sekarang</button>
             </div>
         </div>
 
         <div class="menu-item">
-            <span class="icon">🌿</span>
             <div class="details">
+                <span class="icon">🌿</span>
                 <h3>Bekam (Cupping Therapy)</h3>
-                <p>Terapi tradisional yang menggunakan cangkir vakum untuk mengeluarkan angin dan racun dari permukaan kulit. Membantu mengurangi nyeri.</p>
+                <p>Terapi tradisional yang menggunakan cangkir vakum.</p>
+            </div>
+            <div class="booking-section">
+                <button data-service="Bekam">Pesan Sekarang</button>
             </div>
         </div>
 
         <div class="menu-item">
-            <span class="icon">✨</span>
             <div class="details">
+                <span class="icon">✨</span>
                 <h3>Treatment Facial dan Totok Wajah</h3>
-                <p>Perawatan kecantikan yang fokus pada pembersihan, nutrisi kulit wajah, dipadukan dengan totok untuk melancarkan peredaran darah dan relaksasi otot wajah.</p>
+                <p>Perawatan kecantikan dan relaksasi otot wajah.</p>
+            </div>
+            <div class="booking-section">
+                <button data-service="Treatment Facial dan Totok Wajah">Pesan Sekarang</button>
             </div>
         </div>
         
     </div>
 
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Konfirmasi Pesanan</h2>
+            <p>Anda telah berhasil memesan layanan:</p>
+            <p style="font-size: 1.2em; font-weight: bold; color: #007bff;" id="serviceNameOutput"></p>
+            <p>Tim kami akan segera menghubungi Anda untuk jadwal dan detail lebih lanjut. Terima kasih!</p>
+        </div>
+    </div>
+
+    <script>
+        // Logika JavaScript untuk Menangani Pesanan
+        const modal = document.getElementById("bookingModal");
+        const serviceNameOutput = document.getElementById("serviceNameOutput");
+        const closeBtn = document.querySelector(".close-btn");
+        const buttons = document.querySelectorAll(".booking-section button");
+
+        // Fungsi saat tombol "Pesan Sekarang" diklik
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Ambil nama layanan dari atribut data-service
+                const serviceName = this.getAttribute('data-service');
+                
+                // Tampilkan nama layanan di modal
+                serviceNameOutput.textContent = serviceName;
+                
+                // Tampilkan modal (pop-up)
+                modal.style.display = "block";
+            });
+        });
+
+        // Fungsi untuk menutup modal saat tombol (x) diklik
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Fungsi untuk menutup modal saat mengklik di luar area modal
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
