@@ -8,96 +8,66 @@
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script> 
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
-</head>
+    
     <style>
-        /* CSS Utama */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #e9ecef;
-            padding: 30px;
-            color: #343a40;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #007bff;
-            text-align: center;
-            margin-bottom: 10px;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 10px;
-        }
+        /* * CSS yang ada sebelumnya di sini dihapus karena sudah diatasi 
+         * oleh style.css dan Tailwind. Hanya menyisakan CSS spesifik 
+         * yang belum ada di style.css. 
+         */
+        
+        /* OVERRIDE/PENYESUAIAN KHUSUS UNTUK MENU ITEM */
         .menu-item {
             display: flex;
-            justify-content: space-between; /* Untuk memisahkan detail dan tombol */
+            justify-content: space-between; 
             align-items: center;
             margin-bottom: 20px;
             padding: 15px;
-            border-left: 5px solid #28a745;
+            /* Menggunakan border-left dari custom CSS */
+            border-left: 5px solid var(--primary-color); 
             background-color: #f8f9fa;
             border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Tambahan shadow ringan */
+            transition: all 0.3s ease;
+        }
+        .menu-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .icon {
             font-size: 28px;
             margin-right: 20px;
-            color: #28a745;
+            color: var(--primary-color); /* Warna ikon disesuaikan dengan primary-color */
         }
-        .details h3 {
-            margin: 0 0 5px 0;
-        }
-        .details p {
-            margin: 0;
-            font-size: 0.9em;
-            color: #6c757d;
-        }
-        .booking-section button {
-            background-color: #ffc107;
-            color: #212529;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.2s;
-        }
-        .booking-section button:hover {
-            background-color: #e0a800;
-        }
-
-        /* CSS untuk Modal Konfirmasi (Pop-up) */
+        
+        /* Modal (Disesuaikan dengan styling kustom) */
         .modal {
-            display: none; /* Tersembunyi secara default */
+            display: none; 
             position: fixed;
-            z-index: 1;
+            z-index: 1000; /* Z-index lebih tinggi */
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.4); /* Background gelap */
+            background-color: rgba(0,0,0,0.6); 
         }
         .modal-content {
             background-color: #fefefe;
-            margin: 15% auto; /* Tengah vertikal dan horizontal */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 400px;
+            margin: 10% auto; 
+            padding: 30px;
             border-radius: 8px;
             text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 450px;
         }
         .close-btn {
             color: #aaa;
             float: right;
-            font-size: 28px;
+            font-size: 30px;
             font-weight: bold;
         }
         .close-btn:hover,
@@ -109,7 +79,8 @@
     </style>
 </head>
 <body>
-   <nav class="bg-white shadow-lg sticky top-0 z-50">
+    
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center">
                 <img
@@ -127,7 +98,7 @@
             <div class="hidden md:flex space-x-8">
                 <a href="index.html" class="text-gray-800 hover:text-primary font-medium">Beranda</a>
                 <a href="products.html" class="text-gray-800 hover:text-primary font-medium">Produk Unggulan</a>
-                <a href="pelayanan_kesehatan.html" class="text-gray-800 hover:text-primary font-medium">Pelayanan Kesehatan</a>
+                <a href="pelayanan_kesehatan.html" class="text-primary font-bold border-b-2 border-primary">Pelayanan Kesehatan</a>
                 <a href="index.html#gallery" class="text-gray-800 hover:text-primary font-medium">Galeri</a>
                 <a href="index.html#contact" class="text-gray-800 hover:text-primary font-medium">Pesan & Kontak</a>
             </div>
@@ -138,56 +109,66 @@
         <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
             <a href="index.html" class="block py-2 text-gray-800 hover:text-primary font-medium">Beranda</a>
             <a href="products.html" class="block py-2 text-gray-800 hover:text-primary font-medium">Produk Unggulan</a>
-            <a href="pelayanan_kesehatan.html" class="text-gray-800 hover:text-primary font-medium">Pelayanan Kesehatan</a>
+            <a href="pelayanan_kesehatan.html" class="block py-2 text-primary font-bold">Pelayanan Kesehatan</a>
             <a href="index.html#gallery" class="block py-2 text-gray-800 hover:text-primary font-medium">Galeri</a>
             <a href="index.html#contact" class="block py-2 text-gray-800 hover:text-primary font-medium">Pesan & Kontak</a>
         </div>
     </nav>
-      <div class="container">
-        <h1>🩺 Layanan Kesehatan & Kecantikan</h1>
-        <p class="subtitle">Pilih pelayanan yang sesuai dan tekan 'Pesan Sekarang' untuk *booking*.</p>
 
-        <div class="menu-item">
-            <div class="details">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center text-primary mb-2">🩺 Layanan Kesehatan & Kecantikan</h1>
+        <div class="section-divider mx-auto"></div>
+        <p class="text-center text-gray-600 mb-8">Pilih pelayanan yang sesuai dan tekan 'Pesan Sekarang' untuk *booking*.</p>
+
+        <div class="menu-item" data-aos="fade-up">
+            <div class="details flex items-center">
                 <span class="icon">❤️</span>
-                <h3>Tes Tekanan Darah</h3>
-                <p>Pemeriksaan rutin untuk mengukur tekanan sistolik dan diastolik.</p>
+                <div>
+                    <h3>Tes Tekanan Darah</h3>
+                    <p>Pemeriksaan rutin untuk mengukur tekanan sistolik dan diastolik.</p>
+                </div>
             </div>
             <div class="booking-section">
-                <button data-service="Tes Tekanan Darah">Pesan Sekarang</button>
+                <button data-service="Tes Tekanan Darah" class="btn-primary px-4 py-2 rounded">Pesan Sekarang</button>
             </div>
         </div>
 
-        <div class="menu-item">
-            <div class="details">
+        <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="details flex items-center">
                 <span class="icon">🩸</span>
-                <h3>Tes Darah Lengkap (CBC)</h3>
-                <p>Analisis komposisi darah (sel darah merah, sel darah putih, trombosit).</p>
+                <div>
+                    <h3>Tes Darah Lengkap (CBC)</h3>
+                    <p>Analisis komposisi darah (sel darah merah, sel darah putih, trombosit).</p>
+                </div>
             </div>
             <div class="booking-section">
-                <button data-service="Tes Darah Lengkap">Pesan Sekarang</button>
+                <button data-service="Tes Darah Lengkap" class="btn-primary px-4 py-2 rounded">Pesan Sekarang</button>
             </div>
         </div>
 
-        <div class="menu-item">
-            <div class="details">
+        <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="details flex items-center">
                 <span class="icon">🌿</span>
-                <h3>Bekam (Cupping Therapy)</h3>
-                <p>Terapi tradisional yang menggunakan cangkir vakum.</p>
+                <div>
+                    <h3>Bekam (Cupping Therapy)</h3>
+                    <p>Terapi tradisional yang menggunakan cangkir vakum.</p>
+                </div>
             </div>
             <div class="booking-section">
-                <button data-service="Bekam">Pesan Sekarang</button>
+                <button data-service="Bekam" class="btn-primary px-4 py-2 rounded">Pesan Sekarang</button>
             </div>
         </div>
 
-        <div class="menu-item">
-            <div class="details">
+        <div class="menu-item" data-aos="fade-up" data-aos-delay="300">
+            <div class="details flex items-center">
                 <span class="icon">✨</span>
-                <h3>Treatment Facial dan Totok Wajah</h3>
-                <p>Perawatan kecantikan dan relaksasi otot wajah.</p>
+                <div>
+                    <h3>Treatment Facial dan Totok Wajah</h3>
+                    <p>Perawatan kecantikan dan relaksasi otot wajah.</p>
+                </div>
             </div>
             <div class="booking-section">
-                <button data-service="Treatment Facial dan Totok Wajah">Pesan Sekarang</button>
+                <button data-service="Treatment Facial dan Totok Wajah" class="btn-primary px-4 py-2 rounded">Pesan Sekarang</button>
             </div>
         </div>
         
@@ -196,10 +177,10 @@
     <div id="bookingModal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
-            <h2>Konfirmasi Pesanan</h2>
+            <h2 class="text-2xl font-semibold text-primary mb-3">Konfirmasi Pesanan</h2>
             <p>Anda telah berhasil memesan layanan:</p>
-            <p style="font-size: 1.2em; font-weight: bold; color: #007bff;" id="serviceNameOutput"></p>
-            <p>Tim kami akan segera menghubungi Anda untuk jadwal dan detail lebih lanjut. Terima kasih!</p>
+            <p class="font-bold text-primary my-2" id="serviceNameOutput"></p>
+            <p class="text-sm text-gray-700">Tim kami akan segera menghubungi Anda untuk jadwal dan detail lebih lanjut. Terima kasih!</p>
         </div>
     </div>
 
@@ -209,33 +190,34 @@
         const serviceNameOutput = document.getElementById("serviceNameOutput");
         const closeBtn = document.querySelector(".close-btn");
         const buttons = document.querySelectorAll(".booking-section button");
+        const menuToggle = document.getElementById("menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
 
         // Fungsi saat tombol "Pesan Sekarang" diklik
         buttons.forEach(button => {
             button.addEventListener('click', function() {
-                // Ambil nama layanan dari atribut data-service
                 const serviceName = this.getAttribute('data-service');
-                
-                // Tampilkan nama layanan di modal
                 serviceNameOutput.textContent = serviceName;
-                
-                // Tampilkan modal (pop-up)
                 modal.style.display = "block";
             });
         });
 
-        // Fungsi untuk menutup modal saat tombol (x) diklik
+        // Fungsi penutup modal
         closeBtn.onclick = function() {
             modal.style.display = "none";
         }
-
-        // Fungsi untuk menutup modal saat mengklik di luar area modal
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
+        
+        // Fungsi untuk toggle menu mobile
+        menuToggle.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
     </script>
+    
     <footer class="bg-secondary text-white py-8 mt-12">
         <div class="container mx-auto px-4 text-center">
             <p class="text-lg font-semibold mb-2">SMKS Kesehatan Yannas Husada Bangkalan</p>
@@ -246,8 +228,7 @@
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    <script src="scripts.js"></script>
-    <script>
+    <script src="scripts.js"></script> <script>
         AOS.init({
             duration: 1000,
             once: true,
